@@ -148,6 +148,7 @@ svg {
   overflow: hidden;
   box-shadow: var(--shadow-panel);
   isolation: isolate;
+  /* height:200px; */
 
   /* Storm-to-field backdrop, built entirely from gradients */
   background:

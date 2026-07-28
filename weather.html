@@ -23,34 +23,7 @@
 
     <div class="dashboard">
 
-      <!-- ================= SIDEBAR ================= -->
-      <!-- <aside class="sidebar">
-      <div class="sidebar__logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M2 8c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M2 13c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/><path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.3"/></svg>
-      </div>
 
-      <nav class="sidebar__nav" aria-label="Primary">
-        <button class="nav-item is-active" data-nav="dashboard" aria-current="page" aria-label="Dashboard">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="3" width="8" height="8" rx="2" fill="currentColor" opacity="0.45"/><rect x="3" y="13" width="8" height="8" rx="2" fill="currentColor" opacity="0.45"/><rect x="13" y="13" width="8" height="8" rx="2" fill="currentColor" opacity="0.45"/></svg>
-        </button>
-        <button class="nav-item" data-nav="messages" aria-label="Messages">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4.14-4.03 7.5-9 7.5a9.7 9.7 0 01-3.8-.76L3 20l1.3-3.9A7.35 7.35 0 013 11.5C3 7.36 7.03 4 12 4s9 3.36 9 7.5z"/></svg>
-        </button>
-        <button class="nav-item" data-nav="explore" aria-label="Explore">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.6 3.7 5.7 3.7 9s-1.3 6.4-3.7 9c-2.4-2.6-3.7-5.7-3.7-9S9.6 5.6 12 3z"/></svg>
-        </button>
-        <button class="nav-item" data-nav="calendar" aria-label="Calendar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-        </button>
-        <button class="nav-item" data-nav="settings" aria-label="Settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M2.5 12h3M18.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
-        </button>
-      </nav>
-
-      <button class="sidebar__logout" aria-label="Log out">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
-      </button>
-    </aside> -->
 
       <!-- ================= MAIN ================= -->
       <main class="main">
@@ -61,8 +34,8 @@
             <h2 class="username">User</h2>
           </div>
 
-          <div class="topbar__actions">
-            
+          <div id="top" class="topbar__actions">
+
             <div class="search-wrap">
               <button class="icon-btn" id="search" aria-label="Search">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
@@ -75,80 +48,84 @@
                 <button type="submit" type="submit">Fetch</button>
               </form>
             </div>
-            
+
             <button class="avatar" aria-label="Profile">US</button>
           </div>
         </header>
 
-        <section class="hero">
-          <span class="badge">Weather Forecast</span>
-          <h1 class="hero__title">Strom<br>with Heavy Rain</h1>
-          <p class="hero__desc">Partly cloudy with occasional snow showers. High around 50°F. Wind from the east 11 to
-            21 mph. Snow chance is 40%, with rainfall expected to be less than an inch.</p>
-        </section>
+        <div id="sec">
 
-        <section class="forecast-strip" aria-label="Six day temperature overview">
-          <div class="forecast-item" data-day="Sunday">
-            <span class="forecast-item__temp">11°</span>
-            <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-            </svg>
-          </div>
-          <div class="forecast-item" data-day="Monday">
-            <span class="forecast-item__temp">13°</span>
-            <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-            </svg>
-          </div>
-          <div class="forecast-item" data-day="Tuesday">
-            <span class="forecast-item__temp">14°</span>
-            <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="8" cy="8" r="3.2" opacity="0.9" />
-              <path d="M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z" />
-            </svg>
-          </div>
-          <div class="forecast-item forecast-item--active" data-day="Wednesday">
-            <span class="forecast-item__temp">10°</span>
-            <svg class="w-icon" viewBox="0 0 24 24">
-              <path d="M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9" fill="none" stroke="currentColor"
-                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M13 13l-3 5h3l-2 4 5-6h-3l2-3z" fill="currentColor" />
-            </svg>
-          </div>
-          <div class="forecast-item" data-day="Thursday">
-            <span class="forecast-item__temp">19°</span>
-            <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-              stroke-linecap="round">
-              <circle cx="12" cy="12" r="4.3" fill="currentColor" stroke="none" />
-              <path
-                d="M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8" />
-            </svg>
-          </div>
-          <div class="forecast-item" data-day="Friday">
-            <span class="forecast-item__temp">12°</span>
-            <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-            </svg>
-          </div>
-        </section>
+          <section class="hero">
+            <span class="badge">Weather Forecast</span>
+            <h1 class="hero__title">Strom<br>with Heavy Rain</h1>
+            <p class="hero__desc">Partly cloudy with occasional snow showers. High around 50°F. Wind from the east 11 to
+              21 mph. Snow chance is 40%, with rainfall expected to be less than an inch.</p>
+          </section>
 
-        <div class="graph" aria-hidden="true">
-          <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
-            <path class="graph__wave"
-              d="M0,95 C90,40 180,40 265,95 C345,145 400,150 435,150 C465,150 480,105 500,65 C555,10 645,10 700,65 C760,120 815,145 875,110 C925,85 965,68 1000,60" />
-            <path class="graph__bolt" d="M508,0 L492,68 L516,74 L470,158 L494,104 L458,170" />
-            <circle class="graph__spark" cx="470" cy="158" r="5" />
-          </svg>
+          <section class="forecast-strip" aria-label="Six day temperature overview">
+            <div class="forecast-item" data-day="Sunday">
+              <span class="forecast-item__temp">11°</span>
+              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
+              </svg>
+            </div>
+            <div class="forecast-item" data-day="Monday">
+              <span class="forecast-item__temp">13°</span>
+              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
+              </svg>
+            </div>
+            <div class="forecast-item" data-day="Tuesday">
+              <span class="forecast-item__temp">14°</span>
+              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="8" cy="8" r="3.2" opacity="0.9" />
+                <path d="M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z" />
+              </svg>
+            </div>
+            <div class="forecast-item forecast-item--active" data-day="Wednesday">
+              <span class="forecast-item__temp">10°</span>
+              <svg class="w-icon" viewBox="0 0 24 24">
+                <path d="M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9" fill="none" stroke="currentColor"
+                  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M13 13l-3 5h3l-2 4 5-6h-3l2-3z" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="forecast-item" data-day="Thursday">
+              <span class="forecast-item__temp">19°</span>
+              <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round">
+                <circle cx="12" cy="12" r="4.3" fill="currentColor" stroke="none" />
+                <path
+                  d="M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8" />
+              </svg>
+            </div>
+            <div class="forecast-item" data-day="Friday">
+              <span class="forecast-item__temp">12°</span>
+              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
+              </svg>
+            </div>
+          </section>
+
+          <div class="graph" aria-hidden="true">
+            <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
+              <path class="graph__wave"
+                d="M0,95 C90,40 180,40 265,95 C345,145 400,150 435,150 C465,150 480,105 500,65 C555,10 645,10 700,65 C760,120 815,145 875,110 C925,85 965,68 1000,60" />
+              <path class="graph__bolt" d="M508,0 L492,68 L516,74 L470,158 L494,104 L458,170" />
+              <circle class="graph__spark" cx="470" cy="158" r="5" />
+            </svg>
+          </div>
+
+          <footer class="days-row">
+            <span>Sunday</span>
+            <span>Monday</span>
+            <span>Tuesday</span>
+            <span class="is-active">Wednesday</span>
+            <span>Thursday</span>
+            <span>Friday</span>
+          </footer>
+
         </div>
-
-        <footer class="days-row">
-          <span>Sunday</span>
-          <span>Monday</span>
-          <span>Tuesday</span>
-          <span class="is-active">Wednesday</span>
-          <span>Thursday</span>
-          <span>Friday</span>
-        </footer>
 
       </main>
 

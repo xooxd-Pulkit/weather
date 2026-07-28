@@ -32,10 +32,11 @@ form.addEventListener("submit", function (dets) {
         })
         .then((data) => {
 
-            
+
 
             console.log(data);
             sec.innerHTML = "";
+            const cond = data.forecast.forecastday;
             // Namespace required for SVG elements to render properly
             const svgNS = "http://www.w3.org/2000/svg";
 
@@ -74,35 +75,38 @@ form.addEventListener("submit", function (dets) {
             const sunItem = document.createElement("div");
             sunItem.className = "forecast-item";
             sunItem.setAttribute("data-day", "Sunday");
-            let cd1=sunItem.getAttribute("data-day");
+            let cd1 = sunItem.getAttribute("data-day");
 
             const sunTemp = document.createElement("span");
             sunTemp.className = "forecast-item__temp";
 
-            sunTemp.textContent = forecastchecktemp(cd1,data);
+            sunTemp.textContent = forecastchecktemp(cd1, data);
 
-            const sunSvg = document.createElementNS(svgNS, "svg");
-            sunSvg.setAttribute("class", "w-icon");
-            sunSvg.setAttribute("viewBox", "0 0 24 24");
-            sunSvg.setAttribute("fill", "currentColor");
+            // const sunSvg = document.createElementNS(svgNS, "svg");
+            // sunSvg.setAttribute("class", "w-icon");
+            // sunSvg.setAttribute("viewBox", "0 0 24 24");
+            // sunSvg.setAttribute("fill", "currentColor");
 
-            const sunPath = document.createElementNS(svgNS, "path");
-            sunPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
-
-            sunSvg.appendChild(sunPath);
+            // const sunPath = document.createElementNS(svgNS, "path");
+            // sunPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
             sunItem.appendChild(sunTemp);
-            sunItem.appendChild(sunSvg);
+            if(icon(data,cd1)) {
+
+                sunItem.appendChild(icon(data,cd1));
+            }
+
+            // sunSvg.appendChild(sunPath);
             forecastStrip.appendChild(sunItem);
 
             // --- Monday ---
             const monItem = document.createElement("div");
             monItem.className = "forecast-item";
             monItem.setAttribute("data-day", "Monday");
-            let cd2=monItem.getAttribute("data-day");
+            let cd2 = monItem.getAttribute("data-day");
 
             const monTemp = document.createElement("span");
             monTemp.className = "forecast-item__temp";
-            monTemp.textContent = forecastchecktemp(cd2,data);
+            monTemp.textContent = forecastchecktemp(cd2, data);
 
             const monSvg = document.createElementNS(svgNS, "svg");
             monSvg.setAttribute("class", "w-icon");
@@ -114,131 +118,150 @@ form.addEventListener("submit", function (dets) {
 
             monSvg.appendChild(monPath);
             monItem.appendChild(monTemp);
-            monItem.appendChild(monSvg);
+            if(icon(data,cd2)) {
+
+                monItem.appendChild(icon(data,cd2));
+            }
+            // monItem.appendChild(monSvg);
             forecastStrip.appendChild(monItem);
 
             // --- Tuesday ---
             const tueItem = document.createElement("div");
             tueItem.className = "forecast-item";
             tueItem.setAttribute("data-day", "Tuesday");
-            let cd3=tueItem.getAttribute("data-day");
+            let cd3 = tueItem.getAttribute("data-day");
 
             const tueTemp = document.createElement("span");
             tueTemp.className = "forecast-item__temp";
-            tueTemp.textContent = forecastchecktemp(cd3,data);
+            tueTemp.textContent = forecastchecktemp(cd3, data);
 
-            const tueSvg = document.createElementNS(svgNS, "svg");
-            tueSvg.setAttribute("class", "w-icon");
-            tueSvg.setAttribute("viewBox", "0 0 24 24");
-            tueSvg.setAttribute("fill", "currentColor");
+            // const tueSvg = document.createElementNS(svgNS, "svg");
+            // tueSvg.setAttribute("class", "w-icon");
+            // tueSvg.setAttribute("viewBox", "0 0 24 24");
+            // tueSvg.setAttribute("fill", "currentColor");
 
-            const tueCircle = document.createElementNS(svgNS, "circle");
-            tueCircle.setAttribute("cx", "8");
-            tueCircle.setAttribute("cy", "8");
-            tueCircle.setAttribute("r", "3.2");
-            tueCircle.setAttribute("opacity", "0.9");
+            // const tueCircle = document.createElementNS(svgNS, "circle");
+            // tueCircle.setAttribute("cx", "8");
+            // tueCircle.setAttribute("cy", "8");
+            // tueCircle.setAttribute("r", "3.2");
+            // tueCircle.setAttribute("opacity", "0.9");
 
-            const tuePath = document.createElementNS(svgNS, "path");
-            tuePath.setAttribute("d", "M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z");
+            // const tuePath = document.createElementNS(svgNS, "path");
+            // tuePath.setAttribute("d", "M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z");
 
-            tueSvg.appendChild(tueCircle);
-            tueSvg.appendChild(tuePath);
+            // tueSvg.appendChild(tueCircle);
+            // tueSvg.appendChild(tuePath);
             tueItem.appendChild(tueTemp);
-            tueItem.appendChild(tueSvg);
+            if(icon(data,cd3)) {
+
+                tueItem.appendChild(icon(data,cd3));
+            }
+            // tueItem.appendChild(tueSvg);
             forecastStrip.appendChild(tueItem);
 
             // --- Wednesday (Active) ---
             const wedItem = document.createElement("div");
             wedItem.className = "forecast-item forecast-item--active";
             wedItem.setAttribute("data-day", "Wednesday");
-            let cd4=wedItem.getAttribute("data-day");
+            let cd4 = wedItem.getAttribute("data-day");
 
             const wedTemp = document.createElement("span");
             wedTemp.className = "forecast-item__temp";
-            wedTemp.textContent = forecastchecktemp(cd4,data);
+            wedTemp.textContent = forecastchecktemp(cd4, data);
 
-            const wedSvg = document.createElementNS(svgNS, "svg");
-            wedSvg.setAttribute("class", "w-icon");
-            wedSvg.setAttribute("viewBox", "0 0 24 24");
+            // const wedSvg = document.createElementNS(svgNS, "svg");
+            // wedSvg.setAttribute("class", "w-icon");
+            // wedSvg.setAttribute("viewBox", "0 0 24 24");
 
-            const wedPath1 = document.createElementNS(svgNS, "path");
-            wedPath1.setAttribute("d", "M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9");
-            wedPath1.setAttribute("fill", "none");
-            wedPath1.setAttribute("stroke", "currentColor");
-            wedPath1.setAttribute("stroke-width", "1.6");
-            wedPath1.setAttribute("stroke-linecap", "round");
-            wedPath1.setAttribute("stroke-linejoin", "round");
+            // const wedPath1 = document.createElementNS(svgNS, "path");
+            // wedPath1.setAttribute("d", "M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9");
+            // wedPath1.setAttribute("fill", "none");
+            // wedPath1.setAttribute("stroke", "currentColor");
+            // wedPath1.setAttribute("stroke-width", "1.6");
+            // wedPath1.setAttribute("stroke-linecap", "round");
+            // wedPath1.setAttribute("stroke-linejoin", "round");
 
-            const wedPath2 = document.createElementNS(svgNS, "path");
-            wedPath2.setAttribute("d", "M13 13l-3 5h3l-2 4 5-6h-3l2-3z");
-            wedPath2.setAttribute("fill", "currentColor");
+            // const wedPath2 = document.createElementNS(svgNS, "path");
+            // wedPath2.setAttribute("d", "M13 13l-3 5h3l-2 4 5-6h-3l2-3z");
+            // wedPath2.setAttribute("fill", "currentColor");
 
-            wedSvg.appendChild(wedPath1);
-            wedSvg.appendChild(wedPath2);
+            // wedSvg.appendChild(wedPath1);
+            // wedSvg.appendChild(wedPath2);
             wedItem.appendChild(wedTemp);
-            wedItem.appendChild(wedSvg);
+            if(icon(data,cd4)) {
+
+                wedItem.appendChild(icon(data,cd4));
+            }
             forecastStrip.appendChild(wedItem);
 
             // --- Thursday ---
             const thuItem = document.createElement("div");
             thuItem.className = "forecast-item";
             thuItem.setAttribute("data-day", "Thursday");
-            let cd5=thuItem.getAttribute("data-day");
+            let cd5 = thuItem.getAttribute("data-day");
 
 
             const thuTemp = document.createElement("span");
             thuTemp.className = "forecast-item__temp";
-            thuTemp.textContent = forecastchecktemp(cd5,data);;
+            thuTemp.textContent = forecastchecktemp(cd5, data);;
             // let b=forecastchecktemp(cd,data);
-            
-            
 
 
-            const thuSvg = document.createElementNS(svgNS, "svg");
-            thuSvg.setAttribute("class", "w-icon");
-            thuSvg.setAttribute("viewBox", "0 0 24 24");
-            thuSvg.setAttribute("fill", "none");
-            thuSvg.setAttribute("stroke", "currentColor");
-            thuSvg.setAttribute("stroke-width", "1.7");
-            thuSvg.setAttribute("stroke-linecap", "round");
 
-            const thuCircle = document.createElementNS(svgNS, "circle");
-            thuCircle.setAttribute("cx", "12");
-            thuCircle.setAttribute("cy", "12");
-            thuCircle.setAttribute("r", "4.3");
-            thuCircle.setAttribute("fill", "currentColor");
-            thuCircle.setAttribute("stroke", "none");
 
-            const thuPath = document.createElementNS(svgNS, "path");
-            thuPath.setAttribute("d", "M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8");
+            // const thuSvg = document.createElementNS(svgNS, "svg");
+            // thuSvg.setAttribute("class", "w-icon");
+            // thuSvg.setAttribute("viewBox", "0 0 24 24");
+            // thuSvg.setAttribute("fill", "none");
+            // thuSvg.setAttribute("stroke", "currentColor");
+            // thuSvg.setAttribute("stroke-width", "1.7");
+            // thuSvg.setAttribute("stroke-linecap", "round");
 
-            thuSvg.appendChild(thuCircle);
-            thuSvg.appendChild(thuPath);
+            // const thuCircle = document.createElementNS(svgNS, "circle");
+            // thuCircle.setAttribute("cx", "12");
+            // thuCircle.setAttribute("cy", "12");
+            // thuCircle.setAttribute("r", "4.3");
+            // thuCircle.setAttribute("fill", "currentColor");
+            // thuCircle.setAttribute("stroke", "none");
+
+            // const thuPath = document.createElementNS(svgNS, "path");
+            // thuPath.setAttribute("d", "M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8");
+
+            // thuSvg.appendChild(thuCircle);
+            // thuSvg.appendChild(thuPath);
             thuItem.appendChild(thuTemp);
-            thuItem.appendChild(thuSvg);
+            if(icon(data,cd5)) {
+
+                thuItem.appendChild(icon(data,cd5));
+            }
+            // thuItem.appendChild(thuSvg);
             forecastStrip.appendChild(thuItem);
 
             // --- Friday ---
             const friItem = document.createElement("div");
             friItem.className = "forecast-item";
             friItem.setAttribute("data-day", "Friday");
-            let cd6=friItem.getAttribute("data-day");
+            let cd6 = friItem.getAttribute("data-day");
 
             const friTemp = document.createElement("span");
             friTemp.className = "forecast-item__temp";
-            friTemp.textContent = forecastchecktemp(cd6,data);
+            friTemp.textContent = forecastchecktemp(cd6, data);
 
-            const friSvg = document.createElementNS(svgNS, "svg");
-            friSvg.setAttribute("class", "w-icon");
-            friSvg.setAttribute("viewBox", "0 0 24 24");
-            friSvg.setAttribute("fill", "currentColor");
+            // const cloudy = document.createElementNS(svgNS, "svg");
+            // cloudy.setAttribute("class", "w-icon");
+            // cloudy.setAttribute("viewBox", "0 0 24 24");
+            // cloudy.setAttribute("fill", "currentColor");
 
-            const friPath = document.createElementNS(svgNS, "path");
-            friPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
+            // const friPath = document.createElementNS(svgNS, "path");
+            // friPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
 
-            friSvg.appendChild(friPath);
+            // cloudy.appendChild(friPath);
             friItem.appendChild(friTemp);
-            friItem.appendChild(friSvg);
+            // friItem.appendChild(frisvgs);
+            if(icon(data,cd6)) {
+
+                friItem.appendChild(icon(data,cd6));
+            }
             forecastStrip.appendChild(friItem);
 
             sec.appendChild(forecastStrip);
@@ -321,7 +344,7 @@ form.addEventListener("submit", function (dets) {
             rightbar.innerHTML = "";
 
             // Simple version - plain document.createElement, line by line, no functions
-
+            // document.querySelector(".aside").innerHTML="";
             // ---------- Aside container ----------
             const aside = document.createElement('aside');
             aside.className = 'rightbar';
@@ -411,7 +434,7 @@ form.addEventListener("submit", function (dets) {
             windPath2.setAttribute('d', 'M3 8h11a3 3 0 10-3-3M3 16h14a3 3 0 11-3 3M3 12h9');
             windSvg2.appendChild(windPath2);
             stat3.appendChild(windSvg2);
-            stat3.appendChild(document.createTextNode(`${data.current.wind_kph} KM/Hr`));
+            stat3.appendChild(document.createTextNode(`${data.current.wind_kph}Kph`));
 
             stats.appendChild(stat1);
             stats.appendChild(stat2);
@@ -477,25 +500,172 @@ function day(data) {
     let day = date.toLocaleDateString('en-us', { weekday: "long" });
     return day;
 }
-function forecastchecktemp(codeday, data) {
+function daymatcher(codeday, data) {
     let date = data.forecast.forecastday;
-    let t1=date[0].day.avgtemp_c;
-    let t2=date[1].day.avgtemp_c;
-    let t3=date[2].day.avgtemp_c;
     let d1 = day(date[0].date);
     let d2 = day(date[1].date);
     let d3 = day(date[2].date);
     // console.log(d1);
-    
-    if(codeday===d1){
-        return t1;
+
+    if (codeday === d1) {
+        return "match1";
     }
-    else if(codeday===d2){
-        return t2;
+    else if (codeday === d2) {
+        return "match2";
     }
-    else if (codeday ===  d3) {
-        return t3;
+    else if (codeday === d3) {
+        return "match3";
 
     }
-    else return "";
+    else return "--°";
+}
+function forecastchecktemp(codeday, data) {
+    let date = data.forecast.forecastday;
+    let t1 = date[0].day.avgtemp_c;
+    let t2 = date[1].day.avgtemp_c;
+    let t3 = date[2].day.avgtemp_c;
+    let d1 = day(date[0].date);
+    let d2 = day(date[1].date);
+    let d3 = day(date[2].date);
+    // console.log(d1);
+
+    if (codeday === d1) {
+        return `${t1}°`;
+    }
+    else if (codeday === d2) {
+        return `${t2}°`;
+    }
+    else if (codeday === d3) {
+        return `${t3}°`;
+
+    }
+    else return "--°";
+}
+function icon(data, cd) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    let cond = data.forecast.forecastday;
+    //fri
+    let cloudy = document.createElementNS(svgNS, "svg");
+    cloudy.setAttribute("class", "w-icon");
+    cloudy.setAttribute("viewBox", "0 0 24 24");
+    cloudy.setAttribute("fill", "currentColor");
+
+    const cloudypath = document.createElementNS(svgNS, "path");
+    cloudypath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
+
+    cloudy.append(cloudypath);
+
+    //thu
+    const sunny = document.createElementNS(svgNS, "svg");
+    sunny.setAttribute("class", "w-icon");
+    sunny.setAttribute("viewBox", "0 0 24 24");
+    sunny.setAttribute("fill", "none");
+    sunny.setAttribute("stroke", "currentColor");
+    sunny.setAttribute("stroke-width", "1.7");
+    sunny.setAttribute("stroke-linecap", "round");
+
+    const sunCircle = document.createElementNS(svgNS, "circle");
+    sunCircle.setAttribute("cx", "12");
+    sunCircle.setAttribute("cy", "12");
+    sunCircle.setAttribute("r", "4.3");
+    sunCircle.setAttribute("fill", "currentColor");
+    sunCircle.setAttribute("stroke", "none");
+
+    const sunPath = document.createElementNS(svgNS, "path");
+    sunPath.setAttribute("d", "M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8");
+
+    sunny.appendChild(sunCircle);
+    sunny.appendChild(sunPath);
+
+
+
+    //wed
+    const thunder = document.createElementNS(svgNS, "svg");
+    thunder.setAttribute("class", "w-icon");
+    thunder.setAttribute("viewBox", "0 0 24 24");
+
+    const thunpath = document.createElementNS(svgNS, "path");
+    thunpath.setAttribute("d", "M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9");
+    thunpath.setAttribute("fill", "none");
+    thunpath.setAttribute("stroke", "currentColor");
+    thunpath.setAttribute("stroke-width", "1.6");
+    thunpath.setAttribute("stroke-linecap", "round");
+    thunpath.setAttribute("stroke-linejoin", "round");
+
+    const thunpath1 = document.createElementNS(svgNS, "path");
+    thunpath1.setAttribute("d", "M13 13l-3 5h3l-2 4 5-6h-3l2-3z");
+    thunpath1.setAttribute("fill", "currentColor");
+
+    thunder.appendChild(thunpath);
+    thunder.appendChild(thunpath1);
+
+    //tuesday
+    const partly = document.createElementNS(svgNS, "svg");
+    partly.setAttribute("class", "w-icon");
+    partly.setAttribute("viewBox", "0 0 24 24");
+    partly.setAttribute("fill", "currentColor");
+
+    const parCircle = document.createElementNS(svgNS, "circle");
+    parCircle.setAttribute("cx", "8");
+    parCircle.setAttribute("cy", "8");
+    parCircle.setAttribute("r", "3.2");
+    parCircle.setAttribute("opacity", "0.9");
+
+    const parPath = document.createElementNS(svgNS, "path");
+    parPath.setAttribute("d", "M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z");
+
+    partly.appendChild(parCircle);
+    partly.appendChild(parPath);
+
+
+
+
+    if (daymatcher(cd, data) === "match1") {
+        let text = cond[0].day.condition.text.toLowerCase();
+        if (text.includes('thunder')) {
+            return thunder;
+        }
+
+        else if (text.includes('partly')) {
+            return partly;
+        }
+
+        else if (text.includes('sunny') || text.includes('clear')) {
+            return sunny;
+        }
+        else return cloudy;
+    }
+    else if (daymatcher(cd, data) === "match2") {
+        let text = cond[1].day.condition.text.toLowerCase();
+        if (text.includes('thunder')) {
+            return thunder;
+        }
+
+        else if (text.includes('partly')) {
+            return partly;
+        }
+
+        else if (text.includes('sunny') || text.includes('clear')) {
+            return sunny;
+        }
+        else return cloudy;
+    }
+    else if (daymatcher(cd, data) === "match3") {
+        let text = cond[2].day.condition.text.toLowerCase();
+        if (text.includes('thunder')) {
+            return thunder;
+        }
+
+        else if (text.includes('partly')) {
+            return partly;
+        }
+
+        else if (text.includes('sunny') || text.includes('clear')) {
+            return sunny;
+        }
+        else return cloudy;
+    }
+    else return null;
+
+
 }

@@ -445,6 +445,7 @@ svg {
   stroke-linejoin: round;
   stroke-linecap: round;
   filter: drop-shadow(0 0 10px rgba(255, 250, 210, 0.9));
+  transform: translateX(0px);
 }
 
 .graph__spark {
@@ -458,6 +459,7 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  row-gap: 10px;;
   max-width: 900px;
   font-size: 15px;
   color: var(--text-secondary);

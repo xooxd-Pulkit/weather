@@ -32,7 +32,7 @@ form.addEventListener("submit", function (dets) {
         })
         .then((data) => {
 
-
+            
 
             console.log(data);
             sec.innerHTML = "";
@@ -161,7 +161,7 @@ form.addEventListener("submit", function (dets) {
 
             // --- Wednesday (Active) ---
             const wedItem = document.createElement("div");
-            wedItem.className = "forecast-item forecast-item--active";
+            wedItem.className = "forecast-item";
             wedItem.setAttribute("data-day", "Wednesday");
             let cd4 = wedItem.getAttribute("data-day");
 
@@ -264,6 +264,33 @@ form.addEventListener("submit", function (dets) {
             }
             forecastStrip.appendChild(friItem);
 
+            //saturday
+            const satItem = document.createElement("div");
+            friItem.className = "forecast-item";
+            friItem.setAttribute("data-day", "Saturday");
+            let cd7 = satItem.getAttribute("data-day");
+
+            const satTemp = document.createElement("span");
+            satTemp.className = "forecast-item__temp";
+            satTemp.textContent = forecastchecktemp(cd7, data);
+
+            // const cloudy = document.createElementNS(svgNS, "svg");
+            // cloudy.setAttribute("class", "w-icon");
+            // cloudy.setAttribute("viewBox", "0 0 24 24");
+            // cloudy.setAttribute("fill", "currentColor");
+
+            // const friPath = document.createElementNS(svgNS, "path");
+            // friPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
+
+            // cloudy.appendChild(friPath);
+            satItem.appendChild(satTemp);
+            // friItem.appendChild(frisvgs);
+            if(icon(data,cd7)) {
+
+                satItem.appendChild(icon(data,cd7));
+            }
+            forecastStrip.appendChild(satItem);
+
             sec.appendChild(forecastStrip);
 
 
@@ -291,10 +318,13 @@ form.addEventListener("submit", function (dets) {
             graphSpark.setAttribute("cx", "470");
             graphSpark.setAttribute("cy", "158");
             graphSpark.setAttribute("r", "5");
+            let boltspark=document.createElementNS(svgNS,"g");
+            boltspark.append(graphBolt);
+            boltspark.append(graphSpark);
 
             graphSvg.appendChild(graphWave);
-            graphSvg.appendChild(graphBolt);
-            graphSvg.appendChild(graphSpark);
+            graphSvg.appendChild(boltspark);
+            // graphSvg.appendChild(graphSpark);
             graphDiv.appendChild(graphSvg);
 
             sec.appendChild(graphDiv);
@@ -317,7 +347,7 @@ form.addEventListener("submit", function (dets) {
             tueSpan.textContent = "Tuesday";
 
             const wedSpan = document.createElement("span");
-            wedSpan.className = "is-active";
+            // wedSpan.className = "is-active";
             wedSpan.textContent = "Wednesday";
 
             const thuSpan = document.createElement("span");
@@ -325,6 +355,8 @@ form.addEventListener("submit", function (dets) {
 
             const friSpan = document.createElement("span");
             friSpan.textContent = "Friday";
+            const satSpan = document.createElement("span");
+            satSpan.textContent = "Saturday";
 
             footer.appendChild(sunSpan);
             footer.appendChild(monSpan);
@@ -332,7 +364,8 @@ form.addEventListener("submit", function (dets) {
             footer.appendChild(wedSpan);
             footer.appendChild(thuSpan);
             footer.appendChild(friSpan);
-
+            footer.appendChild(satSpan);
+            activeness(data,footer,forecastStrip);
             // document.body.appendChild(footer);
             sec.appendChild(footer);
             //
@@ -668,4 +701,54 @@ function icon(data, cd) {
     else return null;
 
 
+
+
+}
+
+
+//    wedSpan.className = "is-active";
+function activeness(data,footer,upper){
+    let firstday=day(data.forecast.forecastday[0].date);
+    console.log(firstday);
+    let childrens=footer.children;
+    for(let i=0;i<childrens.length;i++){
+        if(childrens[i].textContent===firstday){
+            childrens[i].className="is-active";
+        }
+    }
+    let up=upper.children;
+    for(let i=0;i<up.length;i++){
+        // let cd5 = thuItem.getAttribute("data-day");
+        let upp=up[i].getAttribute("data-day");
+        if(upp===firstday){
+            //  wedItem.className = "forecast-item forecast-item--active";
+            up[i].className="forecast-item forecast-item--active";
+        }
+    }
+    
+    
+}
+function bolt(boltsvg,data){
+    let firstday=day(data.forecast.forecastday[0].date);
+    if(firstday==="Sunday"){
+        boltsvg.style.transform="translateX(-28rem)";
+    }
+    else if(firstday==="Monday"){
+        boltsvg.style.transform="translateX(-19rem)";
+    }
+    else if(firstday==="Tuesday"){
+        boltsvg.style.transform="translateX(-10rem)";
+    }
+    else if(firstday==="Wednesday"){
+        boltsvg.style.transform="translateX(0rem)";
+    }
+    else if(firstday==="Thursday"){
+        boltsvg.style.transform="translateX(11rem)";
+    }
+    else if(firstday==="Friday"){
+        boltsvg.style.transform="translateX(20rem)";
+    }
+    else{
+        boltsvg.style.transform="translateX(29rem)";
+    }
 }

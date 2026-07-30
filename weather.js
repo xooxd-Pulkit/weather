@@ -1,4 +1,23 @@
+let userlocation=null;
 
+let options={
+    timeout:5000
+}
+if (navigator !== undefined && "geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (pos) {
+        // console.log("Latitude:", pos.coords.latitude);
+        // console.log("Longitude:", pos.coords.longitude);
+        userlocation=`${pos.coords.latitude},${pos.coords.longitude}`;
+        // console.log(userlocation);/
+        searchmain(userlocation);
+    }, function (err) {
+        console.error("Error (" + err.code + "): " + err.message);
+    },options);
+
+}
+
+else console.log("browser issue");
+// console.log(userlocation);
 let dashboard = document.querySelector(".dashboard");
 let main = document.querySelector("main")
 let sec = document.getElementById("sec")
@@ -22,8 +41,10 @@ homesb("Delhi");
 
 
 
-
-
+// if(userlocation){
+    // searchmain(userlocation);
+// }
+// console.log(userlocation);
 
 
 
@@ -42,11 +63,16 @@ document.querySelector("body").addEventListener("click", function (e) {
 
 form.addEventListener("submit", function (dets) {
     dets.preventDefault();
-    gk.style.display = "none"
+    let cj=city.value;
+    searchmain(cj);
+    
+})
+function searchmain(cv){
+        gk.style.display = "none"
 
     // document.querySelector("aside").innerHTML="";
     console.log(city.value);
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${city.value}&days=3&alerts=yes&aqi=yes`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${cv}&days=3&alerts=yes&aqi=yes`)
 
         .then(function (raw) {
             if (!raw.ok) {
@@ -501,16 +527,19 @@ form.addEventListener("submit", function (dets) {
             currentCard.appendChild(location);
             currentCard.appendChild(temp);
             currentCard.appendChild(stats);
-            let secbox=document.createElement("div");
-            renderUVAQICard(secbox, data.current.uv, data.current.air_quality.pm2_5)
+            let secbox = document.createElement("div");
+            renderUVAQICard(secbox, data.current.uv, data.current.air_quality["us-epa-index"]);
+            let thirbox = document.createElement("div");
+            renderSunCard(thirbox, data.forecast.forecastday[0].astro.sunrise, data.forecast.forecastday[0].astro.sunset);
 
-/
+
 
 
 
             // ---------- Put it all together ----------
             aside.appendChild(currentCard);
             aside.appendChild(secbox);
+            aside.appendChild(thirbox);
 
 
             // Finally, add it to the page
@@ -524,7 +553,7 @@ form.addEventListener("submit", function (dets) {
         .catch((error) => {
 
         })
-})
+    }
 
 function yo(data) {
     const current = data.current;
@@ -867,24 +896,24 @@ function homesb(cities) {
 
 // ---- severity lookups (same as before) ----
 function getUVLevel(uv) {
-  if (uv <= 2) return { label: "Low", color: "#22c55e" };
-  if (uv <= 5) return { label: "Moderate", color: "#eab308" };
-  if (uv <= 7) return { label: "High", color: "#f97316" };
-  if (uv <= 10) return { label: "Very High", color: "#ef4444" };
-  return { label: "Extreme", color: "#a855f7" };
+    if (uv <= 2) return { label: "Low", color: "#22c55e" };
+    if (uv <= 5) return { label: "Moderate", color: "#eab308" };
+    if (uv <= 7) return { label: "High", color: "#f97316" };
+    if (uv <= 10) return { label: "Very High", color: "#ef4444" };
+    return { label: "Extreme", color: "#a855f7" };
 }
 
 function getAQILevel(aqi) {
-  if (aqi <= 50) return { label: "Good", color: "#22c55e" };
-  if (aqi <= 100) return { label: "Moderate", color: "#eab308" };
-  if (aqi <= 150) return { label: "Sensitive Groups", color: "#f97316" };
-  if (aqi <= 200) return { label: "Unhealthy", color: "#ef4444" };
-  if (aqi <= 300) return { label: "Very Unhealthy", color: "#a855f7" };
-  return { label: "Hazardous", color: "#7f1d1d" };
+    if (aqi == 1) return { label: "Good", color: "#22c55e" };
+    if (aqi == 2) return { label: "Moderate", color: "#eab308" };
+    if (aqi == 3) return { label: "Sensitive Groups", color: "#f97316" };
+    if (aqi == 4) return { label: "Unhealthy", color: "#ef4444" };
+    if (aqi == 5) return { label: "Very Unhealthy", color: "#a855f7" };
+    else return { label: "Hazardous", color: "#7f1d1d" };
 }
 
 function getBarWidth(value, max) {
-  return Math.min((value / max) * 100, 100);
+    return Math.min((value / max) * 100, 100);
 }
 
 // ---- your fixed icon markup, reused for every card ----
@@ -903,92 +932,214 @@ const AQI_ICON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="curr
 
 // ---- builds one metric row (used for both UV and AQI) ----
 function createMetricRow({ id, iconSVG, label, value, level, max }) {
-  const metric = document.createElement("div");
-  metric.className = "metric";
-  metric.id = id;
-  metric.style.setProperty("--lvl", level.color);
+    const metric = document.createElement("div");
+    metric.className = "metric";
+    metric.id = id;
+    metric.style.setProperty("--lvl", level.color);
 
-  const icon = document.createElement("div");
-  icon.className = "metric-icon";
-  icon.setAttribute("aria-hidden", "true");
-  icon.innerHTML = iconSVG;
+    const icon = document.createElement("div");
+    icon.className = "metric-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.innerHTML = iconSVG;
 
-  const body = document.createElement("div");
-  body.className = "metric-body";
+    const body = document.createElement("div");
+    body.className = "metric-body";
 
-  const top = document.createElement("div");
-  top.className = "metric-top";
+    const top = document.createElement("div");
+    top.className = "metric-top";
 
-  const labelEl = document.createElement("span");
-  labelEl.className = "metric-label";
-  labelEl.textContent = label;
+    const labelEl = document.createElement("span");
+    labelEl.className = "metric-label";
+    labelEl.textContent = label;
 
-  const tagEl = document.createElement("span");
-  tagEl.className = "metric-tag";
-  tagEl.textContent = level.label;
+    const tagEl = document.createElement("span");
+    tagEl.className = "metric-tag";
+    tagEl.textContent = level.label;
 
-  top.appendChild(labelEl);
-  top.appendChild(tagEl);
+    top.appendChild(labelEl);
+    top.appendChild(tagEl);
 
-  const valueRow = document.createElement("div");
-  valueRow.className = "metric-value-row";
+    const valueRow = document.createElement("div");
+    valueRow.className = "metric-value-row";
 
-  const valueEl = document.createElement("span");
-  valueEl.className = "metric-value";
-  valueEl.textContent = value;
+    const valueEl = document.createElement("span");
+    valueEl.className = "metric-value";
+    valueEl.textContent = value;
 
-  const bar = document.createElement("div");
-  bar.className = "metric-bar";
+    const bar = document.createElement("div");
+    bar.className = "metric-bar";
 
-  const barFill = document.createElement("div");
-  barFill.className = "metric-bar-fill";
-  barFill.style.width = getBarWidth(value, max) + "%";
+    const barFill = document.createElement("div");
+    barFill.className = "metric-bar-fill";
+    barFill.style.width = getBarWidth(value, max) + "%";
 
-  bar.appendChild(barFill);
-  valueRow.appendChild(valueEl);
-  valueRow.appendChild(bar);
+    bar.appendChild(barFill);
+    valueRow.appendChild(valueEl);
+    valueRow.appendChild(bar);
 
-  body.appendChild(top);
-  body.appendChild(valueRow);
+    body.appendChild(top);
+    body.appendChild(valueRow);
 
-  metric.appendChild(icon);
-  metric.appendChild(body);
+    metric.appendChild(icon);
+    metric.appendChild(body);
 
-  return metric;
+    return metric;
 }
 
 // ---- builds the whole card and drops it into a container ----
 function renderUVAQICard(containerId, uv, aqi) {
-  const container = containerId;
-  container.innerHTML = ""; // wipe out the old plain text box
+    const container = containerId;
+    container.innerHTML = ""; // wipe out the old plain text box
 
-  const card = document.createElement("div");
-  card.className = "secbox aq-card";
+    const card = document.createElement("div");
+    card.className = "secbox aq-card";
 
-  const uvRow = createMetricRow({
-    id: "uvMetric",
-    iconSVG: UV_ICON_SVG,
-    label: "UV Index",
-    value: uv,
-    level: getUVLevel(uv),
-    max: 11
-  });
+    const uvRow = createMetricRow({
+        id: "uvMetric",
+        iconSVG: UV_ICON_SVG,
+        label: "UV Index",
+        value: uv,
+        level: getUVLevel(uv),
+        max: 11
+    });
 
-  const divider = document.createElement("div");
-  divider.className = "metric-divider";
+    const divider = document.createElement("div");
+    divider.className = "metric-divider";
 
-  const aqiRow = createMetricRow({
-    id: "aqiMetric",
-    iconSVG: AQI_ICON_SVG,
-    label: "Air Quality",
-    value: aqi,
-    level: getAQILevel(aqi),
-    max: 300
-  });
+    const aqiRow = createMetricRow({
+        id: "aqiMetric",
+        iconSVG: AQI_ICON_SVG,
+        label: "Air Quality",
+        value: aqi,
+        level: getAQILevel(aqi),
+        max: 6
+    });
 
-  card.appendChild(uvRow);
-  card.appendChild(divider);
-  card.appendChild(aqiRow);
+    card.appendChild(uvRow);
+    card.appendChild(divider);
+    card.appendChild(aqiRow);
 
-  container.appendChild(card);
+    container.appendChild(card);
+}
+
+// converts WeatherAPI's "06:12 AM" style string into minutes since midnight
+function parseTimeStrToMinutes(timeStr) {
+    const [time, modifier] = timeStr.trim().split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+    if (modifier.toUpperCase() === "PM" && hours !== 12) hours += 12;
+    if (modifier.toUpperCase() === "AM" && hours === 12) hours = 0;
+    return hours * 60 + minutes;
+}
+
+function getDaylightProgress(sunriseStr, sunsetStr) {
+    const sunriseMin = parseTimeStrToMinutes(sunriseStr);
+    const sunsetMin = parseTimeStrToMinutes(sunsetStr);
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+
+    const totalDaylight = sunsetMin - sunriseMin;
+    let elapsed = nowMin - sunriseMin;
+    if (elapsed < 0) elapsed = 0;
+    if (elapsed > totalDaylight) elapsed = totalDaylight;
+
+    const remainingMin = totalDaylight - elapsed;
+
+    return {
+        percent: (elapsed / totalDaylight) * 100,
+        remainingHours: Math.floor(remainingMin / 60),
+        remainingMinutes: Math.round(remainingMin % 60),
+        isDaytime: nowMin >= sunriseMin && nowMin <= sunsetMin
+    };
+}
+
+const SUNRISE_ICON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M6 15a6 6 0 0 1 12 0"/>
+  <path d="M3 15h1.5M19.5 15H21"/>
+  <path d="M12 2v4"/>
+  <path d="M5.6 9l1.2 1.2M18.4 9l-1.2 1.2"/>
+  <path d="M8 6l4-4 4 4"/>
+  <path d="M2 19h20"/>
+</svg>`;
+
+const SUNSET_ICON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M6 15a6 6 0 0 1 12 0"/>
+  <path d="M3 15h1.5M19.5 15H21"/>
+  <path d="M12 2v4"/>
+  <path d="M5.6 9l1.2 1.2M18.4 9l-1.2 1.2"/>
+  <path d="M8 2l4 4 4-4"/>
+  <path d="M2 19h20"/>
+</svg>`;
+
+function createSunRow(label, value, iconSVG, lvlColor) {
+    const row = document.createElement("div");
+    row.className = "sun-row";
+
+    const icon = document.createElement("div");
+    icon.className = "sun-icon";
+    icon.style.setProperty("--lvl", lvlColor);
+    icon.setAttribute("aria-hidden", "true");
+    icon.innerHTML = iconSVG;
+
+    const body = document.createElement("div");
+    body.className = "sun-body";
+
+    const labelEl = document.createElement("span");
+    labelEl.className = "sun-label";
+    labelEl.textContent = label;
+
+    const valueEl = document.createElement("span");
+    valueEl.className = "sun-value";
+    valueEl.textContent = value;
+
+    body.appendChild(labelEl);
+    body.appendChild(valueEl);
+    row.appendChild(icon);
+    row.appendChild(body);
+
+    return row;
+}
+
+function renderSunCard(containerId, sunriseStr, sunsetStr) {
+    const container = containerId;
+    container.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "secbox sun-card";
+
+    const sunriseRow = createSunRow("Sunrise", sunriseStr, SUNRISE_ICON_SVG, "#fbbf24");
+    const sunsetRow = createSunRow("Sunset", sunsetStr, SUNSET_ICON_SVG, "#f97316");
+
+    const progress = getDaylightProgress(sunriseStr, sunsetStr);
+
+    const track = document.createElement("div");
+    track.className = "daylight-track";
+
+    const bar = document.createElement("div");
+    bar.className = "daylight-bar";
+
+    const barFill = document.createElement("div");
+    barFill.className = "daylight-bar-fill";
+    barFill.style.width = progress.percent + "%";
+
+    const dot = document.createElement("div");
+    dot.className = "daylight-sun-dot";
+    dot.style.left = progress.percent + "%";
+
+    bar.appendChild(barFill);
+    bar.appendChild(dot);
+
+    const caption = document.createElement("span");
+    caption.className = "daylight-caption";
+    caption.textContent = progress.isDaytime
+        ? `${progress.remainingHours}h ${progress.remainingMinutes}m of daylight left`
+        : "Nighttime";
+
+    track.appendChild(bar);
+    track.appendChild(caption);
+
+    card.appendChild(sunriseRow);
+    card.appendChild(track);
+    card.appendChild(sunsetRow);
+
+    container.appendChild(card);
 }

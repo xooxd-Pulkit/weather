@@ -1,18 +1,19 @@
-let userlocation=null;
+let userlocation = null;
+// https://api.weatherapi.com/v1/search.json?key=YOUR_API_KEY&q=CITY_NAME
 
-let options={
-    timeout:5000
+let options = {
+    timeout: 5000
 }
 if (navigator !== undefined && "geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function (pos) {
         // console.log("Latitude:", pos.coords.latitude);
         // console.log("Longitude:", pos.coords.longitude);
-        userlocation=`${pos.coords.latitude},${pos.coords.longitude}`;
+        userlocation = `${pos.coords.latitude},${pos.coords.longitude}`;
         // console.log(userlocation);/
         searchmain(userlocation);
     }, function (err) {
         console.error("Error (" + err.code + "): " + err.message);
-    },options);
+    }, options);
 
 }
 
@@ -31,20 +32,32 @@ homesb("Sydney");
 homesb("Tokyo");
 homesb("Delhi");
 
+let culist = document.querySelector("ul");
 
 
+city.addEventListener("input", function (e) {
+    let vy = city.value;
+    culist.innerHTML = "";
+    if (vy.length > 2) {
+        fetch(`https://api.weatherapi.com/v1/search.json?key=01c5f08129a6474d9b865906262707&q=${vy}`)
+            .then(function (raw) {
+                return raw.json()
+            })
+            .then(function (dets) {
+                console.log(dets);
+                dets.forEach(function (citi) {
+                    let clist = document.createElement("li");
+                    clist.innerText = citi.name + "," + citi.region;
+                    culist.append(clist);
+
+                })
 
 
+            })
+    }
 
 
-
-
-
-
-// if(userlocation){
-    // searchmain(userlocation);
-// }
-// console.log(userlocation);
+})
 
 
 
@@ -53,6 +66,8 @@ search.addEventListener("click", function (e) {
 
     e.stopPropagation();
     form.classList.toggle("open");
+
+
 
 })
 document.querySelector("body").addEventListener("click", function (e) {
@@ -63,16 +78,17 @@ document.querySelector("body").addEventListener("click", function (e) {
 
 form.addEventListener("submit", function (dets) {
     dets.preventDefault();
-    let cj=city.value;
+    let cj = city.value;
     searchmain(cj);
-    
+
 })
-function searchmain(cv){
-        gk.style.display = "none"
+function searchmain(cv) {
+    gk.style.display = "none"
 
     // document.querySelector("aside").innerHTML="";
     console.log(city.value);
     fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${cv}&days=3&alerts=yes&aqi=yes`)
+
 
         .then(function (raw) {
             if (!raw.ok) {
@@ -553,7 +569,7 @@ function searchmain(cv){
         .catch((error) => {
 
         })
-    }
+}
 
 function yo(data) {
     const current = data.current;

@@ -688,7 +688,7 @@ svg {
   /* transition setup */
   max-height: 0;
   opacity: 0;
-  overflow: hidden;
+  overflow: visible;
   transform: translateY(-8px);
   transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
@@ -703,6 +703,7 @@ svg {
 
 
 .search-form input {
+  
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #e2e2e2;
@@ -908,4 +909,49 @@ svg {
   font-size: 11.5px;
   font-weight: 600;
   color: var(--text-secondary);
+}
+/* 1. CRITICAL: The wrapper around your search input */
+
+/* 2. Dropdown List */
+.suggestions-list {
+  position: absolute;
+  top: 100%;          /* Positions directly below the input field */
+  left: 0;
+  right: 0;           /* Matches the width of the parent container */
+  width: 100%;
+  z-index: 1000;      /* Forces dropdown above cards, maps, or widgets */
+  
+  /* Height limit & scrolling */
+  max-height: 220px;
+  overflow-y: auto;
+  
+  /* Reset default list padding/bullets */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  /* Theme styling (adjust colors to match your site) */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-top: none; /* Merges dropdown seamlessly with bottom of search bar */
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box; /* Prevents width overflow if border is used */
+}
+
+.suggestions-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* 3. Individual Suggestion Items */
+.suggestions-list li {
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #333333;
+  text-align: left; /* Overrides centered text if your search bar centers input */
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f4f8;
 }

@@ -57,63 +57,64 @@
 
           <section class="hero">
             <span class="badge">Weather Forecast</span>
-            <h1 class="hero__title">Strom<br>with Heavy Rain</h1>
-            <p class="hero__desc">Partly cloudy with occasional snow showers. High around 50°F. Wind from the east 11 to
+            <h1 class="hero__title" id="bigquote">Strom<br>with Heavy Rain</h1>
+            <p class="hero__desc" id="summaryd">Partly cloudy with occasional snow showers. High around 50°F. Wind from
+              the east 11 to
               21 mph. Snow chance is 40%, with rainfall expected to be less than an inch.</p>
           </section>
 
           <section class="forecast-strip" aria-label="Six day temperature overview">
             <div class="forecast-item" data-day="Sunday">
-              <span class="forecast-item__temp">11°</span>
-              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+              <span class="forecast-item__temp" id="Sunday">11°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-              </svg>
+              </svg> -->
             </div>
             <div class="forecast-item" data-day="Monday">
-              <span class="forecast-item__temp">13°</span>
-              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+              <span class="forecast-item__temp" id="Monday">13°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-              </svg>
+              </svg> -->
             </div>
             <div class="forecast-item " data-day="Tuesday">
-              <span class="forecast-item__temp">14°</span>
-              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+              <span class="forecast-item__temp" id="Tuesday">14°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="8" cy="8" r="3.2" opacity="0.9" />
                 <path d="M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z" />
-              </svg>
+              </svg> -->
             </div>
-            <div class="forecast-item forecast-item--active" data-day="Wednesday">
-            <!-- <div class="forecast-item forecast-item--active" data-day="Wednesday"> -->
-              <span class="forecast-item__temp">10°</span>
-              <svg class="w-icon" viewBox="0 0 24 24">
+            <div class="forecast-item" data-day="Wednesday">
+              <!-- <div class="forecast-item forecast-item--active" data-day="Wednesday"> -->
+              <span class="forecast-item__temp" id="Wednesday">10°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24">
                 <path d="M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9" fill="none" stroke="currentColor"
                   stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M13 13l-3 5h3l-2 4 5-6h-3l2-3z" fill="currentColor" />
-              </svg>
+              </svg> -->
             </div>
             <div class="forecast-item" data-day="Thursday">
-              <span class="forecast-item__temp">19°</span>
-              
+              <span class="forecast-item__temp" id="Thursday">19°</span>
 
-              <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                 stroke-linecap="round">
 
                 <circle cx="12" cy="12" r="4.3" fill="currentColor" stroke="none" />
                 <path
                   d="M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8" />
-              </svg>
+              </svg> -->
             </div>
             <div class="forecast-item" data-day="Friday">
-              <span class="forecast-item__temp">12°</span>
-              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+              <span class="forecast-item__temp" id="Friday">--°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-              </svg>
+              </svg> -->
             </div>
             <div class="forecast-item" data-day="Saturday">
-              <span class="forecast-item__temp">12°</span>
-              <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
+              <span class="forecast-item__temp" id="Saturday">12°</span>
+              <!-- <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
-              </svg>
+              </svg> -->
             </div>
           </section>
 
@@ -121,8 +122,11 @@
             <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
               <path class="graph__wave"
                 d="M0,95 C90,40 180,40 265,95 C345,145 400,150 435,150 C465,150 480,105 500,65 C555,10 645,10 700,65 C760,120 815,145 875,110 C925,85 965,68 1000,60" />
-              <path class="graph__bolt" d="M508,0 L492,68 L516,74 L470,158 L494,104 L458,170" />
-              <circle class="graph__spark" cx="470" cy="158" r="5" />
+              <svg id="boltspark">
+                <path class="graph__bolt" d="M508,0 L492,68 L516,74 L470,158 L494,104 L458,170" />
+                <circle class="graph__spark" cx="470" cy="158" r="5" />
+              </svg>
+
             </svg>
           </div>
 
@@ -130,8 +134,8 @@
             <span>Sunday</span>
             <span>Monday</span>
             <span>Tuesday</span>
-            
-            <span class="is-active">Wednesday</span>
+
+            <span>Wednesday</span>
             <span>Thursday</span>
             <span>Friday</span>
             <span>Saturday</span>
@@ -142,7 +146,7 @@
       </main>
 
       <!-- ================= RIGHT SIDEBAR ================= -->
-      <!-- <aside class="rightbar">
+      <aside class="rightbar" id="fuckpart">
 
         <div class="current-card">
           <p class="current-card__location">
@@ -151,31 +155,31 @@
               <path d="M12 21s7-6.6 7-12a7 7 0 10-14 0c0 5.4 7 12 7 12z" />
               <circle cx="12" cy="9" r="2.3" />
             </svg>
-            Central Jakarta
+            Delhi,India
           </p>
-          <p class="current-card__temp">10<span>°C</span></p>
+          <p class="current-card__temp" id="Delhitem">10<span>°C</span></p>
           <div class="current-card__stats">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
                 <path d="M3 8h11a3 3 0 10-3-3M3 16h14a3 3 0 11-3 3M3 12h9" />
-              </svg>19 mph</span>
+              </svg><span id="Delhiwinm">19 mph</span></span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M12 2.5s6 7.2 6 11.5A6 6 0 016 14C6 9.7 12 2.5 12 2.5z" />
-              </svg>40%</span>
+              </svg><span id="Delhirai">40%</span></span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
                 <path d="M3 8h11a3 3 0 10-3-3M3 16h14a3 3 0 11-3 3M3 12h9" />
-              </svg>15km/h</span>
+              </svg><span id="Delhiwink">15km/h</span></span>
           </div>
-        </div> -->
+        </div>
 
-        <!-- <ul class="city-list">
+        <ul class="city-list">
           <li class="city-card" data-city="North Jakarta">
             <div class="city-card__info">
-              <p class="city-card__country">Indonesia</p>
-              <p class="city-card__name">North Jakarta</p>
-              <p class="city-card__desc">Mostly Sunny</p>
+              <p class="city-card__country">USA</p>
+              <p class="city-card__name">New York</p>
+              <p class="city-card__desc" id="NewYorkquo">Mostly Sunny</p>
             </div>
-            <div class="city-card__temp">
+            <div class="city-card__temp" id="NewYorktem">
               12°
               <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="8" cy="8" r="3" opacity="0.9" />
@@ -185,11 +189,11 @@
           </li>
           <li class="city-card city-card--alt" data-city="Bandung">
             <div class="city-card__info">
-              <p class="city-card__country">Indonesia</p>
-              <p class="city-card__name">Bandung</p>
-              <p class="city-card__desc">Cloudy</p>
+              <p class="city-card__country">Australia</p>
+              <p class="city-card__name">Sydney</p>
+              <p class="city-card__desc" id="Sydneyquo">Cloudy</p>
             </div>
-            <div class="city-card__temp">
+            <div class="city-card__temp" id="Sydneytem">
               10°
               <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
@@ -198,18 +202,18 @@
           </li>
           <li class="city-card" data-city="South Jakarta">
             <div class="city-card__info">
-              <p class="city-card__country">Indonesia</p>
-              <p class="city-card__name">South Jakarta</p>
-              <p class="city-card__desc">Sunny</p>
+              <p class="city-card__country">JAPAN</p>
+              <p class="city-card__name">Tokyo</p>
+              <p class="city-card__desc" id="Tokyoquo">Sunny</p>
             </div>
-            <div class="city-card__temp">
+            <div class="city-card__temp" id="Tokyotem">
               14°
               <svg class="w-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z" />
               </svg>
             </div>
           </li>
-        </ul> -->
+        </ul>
 
       </aside>
 

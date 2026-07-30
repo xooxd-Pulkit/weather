@@ -6,6 +6,27 @@ let rightbar = document.createElement("div");
 let form = document.querySelector("#form");
 let search = document.querySelector("#search");
 let city = document.querySelector("#city");
+let gk = document.querySelector("#fuckpart");
+homesb("NewYork");
+homesb("Sydney");
+homesb("Tokyo");
+homesb("Delhi");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 search.addEventListener("click", function (e) {
 
 
@@ -21,8 +42,11 @@ document.querySelector("body").addEventListener("click", function (e) {
 
 form.addEventListener("submit", function (dets) {
     dets.preventDefault();
+    gk.style.display = "none"
+
+    // document.querySelector("aside").innerHTML="";
     console.log(city.value);
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${city.value}&days=3&alerts=yes`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${city.value}&days=3&alerts=yes&aqi=yes`)
 
         .then(function (raw) {
             if (!raw.ok) {
@@ -32,7 +56,6 @@ form.addEventListener("submit", function (dets) {
         })
         .then((data) => {
 
-            
 
             console.log(data);
             sec.innerHTML = "";
@@ -90,9 +113,9 @@ form.addEventListener("submit", function (dets) {
             // const sunPath = document.createElementNS(svgNS, "path");
             // sunPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
             sunItem.appendChild(sunTemp);
-            if(icon(data,cd1)) {
+            if (icon(data, cd1)) {
 
-                sunItem.appendChild(icon(data,cd1));
+                sunItem.appendChild(icon(data, cd1));
             }
 
             // sunSvg.appendChild(sunPath);
@@ -118,9 +141,9 @@ form.addEventListener("submit", function (dets) {
 
             monSvg.appendChild(monPath);
             monItem.appendChild(monTemp);
-            if(icon(data,cd2)) {
+            if (icon(data, cd2)) {
 
-                monItem.appendChild(icon(data,cd2));
+                monItem.appendChild(icon(data, cd2));
             }
             // monItem.appendChild(monSvg);
             forecastStrip.appendChild(monItem);
@@ -152,9 +175,9 @@ form.addEventListener("submit", function (dets) {
             // tueSvg.appendChild(tueCircle);
             // tueSvg.appendChild(tuePath);
             tueItem.appendChild(tueTemp);
-            if(icon(data,cd3)) {
+            if (icon(data, cd3)) {
 
-                tueItem.appendChild(icon(data,cd3));
+                tueItem.appendChild(icon(data, cd3));
             }
             // tueItem.appendChild(tueSvg);
             forecastStrip.appendChild(tueItem);
@@ -188,9 +211,9 @@ form.addEventListener("submit", function (dets) {
             // wedSvg.appendChild(wedPath1);
             // wedSvg.appendChild(wedPath2);
             wedItem.appendChild(wedTemp);
-            if(icon(data,cd4)) {
+            if (icon(data, cd4)) {
 
-                wedItem.appendChild(icon(data,cd4));
+                wedItem.appendChild(icon(data, cd4));
             }
             forecastStrip.appendChild(wedItem);
 
@@ -230,9 +253,9 @@ form.addEventListener("submit", function (dets) {
             // thuSvg.appendChild(thuCircle);
             // thuSvg.appendChild(thuPath);
             thuItem.appendChild(thuTemp);
-            if(icon(data,cd5)) {
+            if (icon(data, cd5)) {
 
-                thuItem.appendChild(icon(data,cd5));
+                thuItem.appendChild(icon(data, cd5));
             }
             // thuItem.appendChild(thuSvg);
             forecastStrip.appendChild(thuItem);
@@ -258,16 +281,16 @@ form.addEventListener("submit", function (dets) {
             // cloudy.appendChild(friPath);
             friItem.appendChild(friTemp);
             // friItem.appendChild(frisvgs);
-            if(icon(data,cd6)) {
+            if (icon(data, cd6)) {
 
-                friItem.appendChild(icon(data,cd6));
+                friItem.appendChild(icon(data, cd6));
             }
             forecastStrip.appendChild(friItem);
 
             //saturday
             const satItem = document.createElement("div");
-            friItem.className = "forecast-item";
-            friItem.setAttribute("data-day", "Saturday");
+            satItem.className = "forecast-item";
+            satItem.setAttribute("data-day", "Saturday");
             let cd7 = satItem.getAttribute("data-day");
 
             const satTemp = document.createElement("span");
@@ -285,9 +308,9 @@ form.addEventListener("submit", function (dets) {
             // cloudy.appendChild(friPath);
             satItem.appendChild(satTemp);
             // friItem.appendChild(frisvgs);
-            if(icon(data,cd7)) {
+            if (icon(data, cd7)) {
 
-                satItem.appendChild(icon(data,cd7));
+                satItem.appendChild(icon(data, cd7));
             }
             forecastStrip.appendChild(satItem);
 
@@ -318,7 +341,7 @@ form.addEventListener("submit", function (dets) {
             graphSpark.setAttribute("cx", "470");
             graphSpark.setAttribute("cy", "158");
             graphSpark.setAttribute("r", "5");
-            let boltspark=document.createElementNS(svgNS,"g");
+            let boltspark = document.createElementNS(svgNS, "g");
             boltspark.append(graphBolt);
             boltspark.append(graphSpark);
 
@@ -365,7 +388,8 @@ form.addEventListener("submit", function (dets) {
             footer.appendChild(thuSpan);
             footer.appendChild(friSpan);
             footer.appendChild(satSpan);
-            activeness(data,footer,forecastStrip);
+            activeness(data, footer, forecastStrip);
+            bolt(boltspark, data);
             // document.body.appendChild(footer);
             sec.appendChild(footer);
             //
@@ -375,6 +399,7 @@ form.addEventListener("submit", function (dets) {
 
 
             rightbar.innerHTML = "";
+
 
             // Simple version - plain document.createElement, line by line, no functions
             // document.querySelector(".aside").innerHTML="";
@@ -476,10 +501,16 @@ form.addEventListener("submit", function (dets) {
             currentCard.appendChild(location);
             currentCard.appendChild(temp);
             currentCard.appendChild(stats);
+            let secbox=document.createElement("div");
+            renderUVAQICard(secbox, data.current.uv, data.current.air_quality.pm2_5)
+
+/
+
 
 
             // ---------- Put it all together ----------
             aside.appendChild(currentCard);
+            aside.appendChild(secbox);
 
 
             // Finally, add it to the page
@@ -560,7 +591,8 @@ function forecastchecktemp(codeday, data) {
     let d1 = day(date[0].date);
     let d2 = day(date[1].date);
     let d3 = day(date[2].date);
-    // console.log(d1);
+    console.log(codeday);
+
 
     if (codeday === d1) {
         return `${t1}°`;
@@ -707,48 +739,256 @@ function icon(data, cd) {
 
 
 //    wedSpan.className = "is-active";
-function activeness(data,footer,upper){
-    let firstday=day(data.forecast.forecastday[0].date);
+function activeness(data, footer, upper) {
+    let firstday = day(data.forecast.forecastday[0].date);
     console.log(firstday);
-    let childrens=footer.children;
-    for(let i=0;i<childrens.length;i++){
-        if(childrens[i].textContent===firstday){
-            childrens[i].className="is-active";
+    let childrens = footer.children;
+    for (let i = 0; i < childrens.length; i++) {
+        if (childrens[i].textContent === firstday) {
+            childrens[i].className = "is-active";
         }
     }
-    let up=upper.children;
-    for(let i=0;i<up.length;i++){
+    let up = upper.children;
+    for (let i = 0; i < up.length; i++) {
         // let cd5 = thuItem.getAttribute("data-day");
-        let upp=up[i].getAttribute("data-day");
-        if(upp===firstday){
+        let upp = up[i].getAttribute("data-day");
+        if (upp === firstday) {
             //  wedItem.className = "forecast-item forecast-item--active";
-            up[i].className="forecast-item forecast-item--active";
+            up[i].className = "forecast-item forecast-item--active";
         }
     }
-    
-    
+
+
 }
-function bolt(boltsvg,data){
-    let firstday=day(data.forecast.forecastday[0].date);
-    if(firstday==="Sunday"){
-        boltsvg.style.transform="translateX(-28rem)";
+function bolt(boltsvg, data) {
+
+    let firstday = day(data.forecast.forecastday[0].date);
+    // let firstday="Sunday";
+    if (firstday === "Sunday") {
+        boltsvg.style.transform = "translateX(-28rem)";
     }
-    else if(firstday==="Monday"){
-        boltsvg.style.transform="translateX(-19rem)";
+    else if (firstday === "Monday") {
+        boltsvg.style.transform = "translateX(-18rem)";
     }
-    else if(firstday==="Tuesday"){
-        boltsvg.style.transform="translateX(-10rem)";
+    else if (firstday === "Tuesday") {
+        boltsvg.style.transform = "translateX(-9rem)";
     }
-    else if(firstday==="Wednesday"){
-        boltsvg.style.transform="translateX(0rem)";
+    else if (firstday === "Wednesday") {
+        boltsvg.style.transform = "translateX(0rem)";
     }
-    else if(firstday==="Thursday"){
-        boltsvg.style.transform="translateX(11rem)";
+    else if (firstday === "Thursday") {
+        boltsvg.style.transform = "translateX(12rem)";
     }
-    else if(firstday==="Friday"){
-        boltsvg.style.transform="translateX(20rem)";
+    else if (firstday === "Friday") {
+        boltsvg.style.transform = "translateX(21rem)";
     }
-    else{
-        boltsvg.style.transform="translateX(29rem)";
+    else {
+        boltsvg.style.transform = "translateX(29rem)";
     }
+}
+
+function homesb(cities) {
+    if (cities === "NewYork") {
+        cities = "New York";
+    }
+    if (cities === "Delhi") {
+        cities = "New Delhi";
+    }
+
+
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${cities}&days=3&alerts=yes`)
+        .then(function (kacha) {
+            if (!kacha.ok) {
+                throw new error("fucked up");
+            }
+            else return kacha.json();
+        })
+        .then(function (data) {
+            let temp = data.current.temp_c;
+            let quote = data.current.condition.text;
+            let rain = data.current.chance_of_rain;
+            let wink = data.current.wind_kph;
+            let winm = data.current.wind_mph;
+            let summaryd = yo(data);
+            if (cities === "New Delhi") {
+                cities = "Delhi";
+                // console.log(data)
+                let ctemp = document.querySelector(`#${cities}tem`);
+                ctemp.textContent = `${temp}°C`;
+                let cwindk = document.querySelector(`#${cities}wink`)
+                cwindk.textContent = `${wink}km/h`;
+                let cwindm = document.querySelector(`#${cities}winm`)
+                cwindm.textContent = `${winm} mph`;
+                let crain = document.querySelector(`#${cities}rai`)
+                crain.textContent = `${rain}%`;
+                console.log(data);
+                document.querySelector("#bigquote").textContent = quote;
+                document.querySelector("#summaryd").textContent = summaryd;
+                let mid = document.querySelectorAll(".forecast-item");
+                mid.forEach(function (dets) {
+                    let dy = dets.getAttribute("data-day");
+                    let dytemp = document.querySelector(`#${dy}`);
+                    console.log(dy);
+                    dytemp.textContent = forecastchecktemp(dy, data);
+                    if (icon(data, dy)) {
+
+                        dets.append(icon(data, dy));
+                    }
+
+                })
+                let footer = document.querySelector("footer");
+                let upper = document.querySelector(".forecast-strip")
+                activeness(data, footer, upper);
+                let boltsp = document.querySelector("#boltspark");
+                bolt(boltsp, data);
+
+            }
+            else {
+
+                console.log(data);
+                if (cities === "New York") {
+                    cities = "NewYork";
+                }
+                let cquote = document.querySelector(`#${cities}quo`);
+                cquote.textContent = `${quote}`;
+                let ctemp = document.querySelector(`#${cities}tem`);
+                ctemp.innerHTML = `${temp}°C`;
+
+
+
+            }
+
+
+        })
+        .catch((error) => {
+            return error;
+        })
+}
+
+// ---- severity lookups (same as before) ----
+function getUVLevel(uv) {
+  if (uv <= 2) return { label: "Low", color: "#22c55e" };
+  if (uv <= 5) return { label: "Moderate", color: "#eab308" };
+  if (uv <= 7) return { label: "High", color: "#f97316" };
+  if (uv <= 10) return { label: "Very High", color: "#ef4444" };
+  return { label: "Extreme", color: "#a855f7" };
+}
+
+function getAQILevel(aqi) {
+  if (aqi <= 50) return { label: "Good", color: "#22c55e" };
+  if (aqi <= 100) return { label: "Moderate", color: "#eab308" };
+  if (aqi <= 150) return { label: "Sensitive Groups", color: "#f97316" };
+  if (aqi <= 200) return { label: "Unhealthy", color: "#ef4444" };
+  if (aqi <= 300) return { label: "Very Unhealthy", color: "#a855f7" };
+  return { label: "Hazardous", color: "#7f1d1d" };
+}
+
+function getBarWidth(value, max) {
+  return Math.min((value / max) * 100, 100);
+}
+
+// ---- your fixed icon markup, reused for every card ----
+const UV_ICON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+  <circle cx="12" cy="12" r="4"/>
+  <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/>
+</svg>`;
+
+const AQI_ICON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+  <circle cx="7" cy="8" r="2.1"/>
+  <circle cx="15" cy="6" r="1.3"/>
+  <circle cx="17" cy="13" r="2.4"/>
+  <circle cx="8" cy="16" r="1.5"/>
+  <circle cx="13" cy="17" r="1"/>
+</svg>`;
+
+// ---- builds one metric row (used for both UV and AQI) ----
+function createMetricRow({ id, iconSVG, label, value, level, max }) {
+  const metric = document.createElement("div");
+  metric.className = "metric";
+  metric.id = id;
+  metric.style.setProperty("--lvl", level.color);
+
+  const icon = document.createElement("div");
+  icon.className = "metric-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.innerHTML = iconSVG;
+
+  const body = document.createElement("div");
+  body.className = "metric-body";
+
+  const top = document.createElement("div");
+  top.className = "metric-top";
+
+  const labelEl = document.createElement("span");
+  labelEl.className = "metric-label";
+  labelEl.textContent = label;
+
+  const tagEl = document.createElement("span");
+  tagEl.className = "metric-tag";
+  tagEl.textContent = level.label;
+
+  top.appendChild(labelEl);
+  top.appendChild(tagEl);
+
+  const valueRow = document.createElement("div");
+  valueRow.className = "metric-value-row";
+
+  const valueEl = document.createElement("span");
+  valueEl.className = "metric-value";
+  valueEl.textContent = value;
+
+  const bar = document.createElement("div");
+  bar.className = "metric-bar";
+
+  const barFill = document.createElement("div");
+  barFill.className = "metric-bar-fill";
+  barFill.style.width = getBarWidth(value, max) + "%";
+
+  bar.appendChild(barFill);
+  valueRow.appendChild(valueEl);
+  valueRow.appendChild(bar);
+
+  body.appendChild(top);
+  body.appendChild(valueRow);
+
+  metric.appendChild(icon);
+  metric.appendChild(body);
+
+  return metric;
+}
+
+// ---- builds the whole card and drops it into a container ----
+function renderUVAQICard(containerId, uv, aqi) {
+  const container = containerId;
+  container.innerHTML = ""; // wipe out the old plain text box
+
+  const card = document.createElement("div");
+  card.className = "secbox aq-card";
+
+  const uvRow = createMetricRow({
+    id: "uvMetric",
+    iconSVG: UV_ICON_SVG,
+    label: "UV Index",
+    value: uv,
+    level: getUVLevel(uv),
+    max: 11
+  });
+
+  const divider = document.createElement("div");
+  divider.className = "metric-divider";
+
+  const aqiRow = createMetricRow({
+    id: "aqiMetric",
+    iconSVG: AQI_ICON_SVG,
+    label: "Air Quality",
+    value: aqi,
+    level: getAQILevel(aqi),
+    max: 300
+  });
+
+  card.appendChild(uvRow);
+  card.appendChild(divider);
+  card.appendChild(aqiRow);
+
+  container.appendChild(card);
 }

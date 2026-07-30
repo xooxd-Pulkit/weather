@@ -58,6 +58,10 @@ city.addEventListener("input", function (e) {
 
 
 })
+culist.addEventListener("click",function(e){
+    console.log(e.target.textContent)
+    searchmain(e.target.textContent)
+})
 
 
 

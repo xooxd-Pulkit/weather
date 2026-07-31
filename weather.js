@@ -27,6 +27,7 @@ let form = document.querySelector("#form");
 let search = document.querySelector("#search");
 let city = document.querySelector("#city");
 let gk = document.querySelector("#fuckpart");
+
 homesb("NewYork");
 homesb("Sydney");
 homesb("Tokyo");
@@ -108,7 +109,21 @@ function searchmain(cv) {
 
 
             console.log(data);
-            sec.innerHTML = "";
+            rightbar.innerHTML = "";
+            let loading=document.createElement("div");
+            loading.textContent="loading...";
+            loading.className="loading";
+            rightbar.append(loading)
+            
+            
+            
+
+
+
+
+
+            setTimeout(function(){
+                sec.innerHTML = "";
             const cond = data.forecast.forecastday;
             // Namespace required for SVG elements to render properly
             const svgNS = "http://www.w3.org/2000/svg";
@@ -443,18 +458,8 @@ function searchmain(cv) {
             // document.body.appendChild(footer);
             sec.appendChild(footer);
             //
-
-
-
-
-
-            rightbar.innerHTML = "";
-
-
-            // Simple version - plain document.createElement, line by line, no functions
-            // document.querySelector(".aside").innerHTML="";
-            // ---------- Aside container ----------
-            const aside = document.createElement('aside');
+                loading.style.display="none";
+                const aside = document.createElement('aside');
             aside.className = 'rightbar';
 
 
@@ -564,13 +569,20 @@ function searchmain(cv) {
             aside.appendChild(currentCard);
             aside.appendChild(secbox);
             aside.appendChild(thirbox);
-
-
-            // Finally, add it to the page
-            main.append(sec);
             rightbar.appendChild(aside);
-            dashboard.append(document.querySelector("main"));
-            dashboard.append(rightbar);
+
+        },500)
+        
+        
+        // Simple version - plain document.createElement, line by line, no functions
+        // document.querySelector(".aside").innerHTML="";
+        // ---------- Aside container ----------
+        
+        
+        // Finally, add it to the page
+        main.append(sec);
+        dashboard.append(document.querySelector("main"));
+        dashboard.append(rightbar);
 
 
         })

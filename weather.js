@@ -45,7 +45,7 @@ city.addEventListener("input", function (e) {
                 return raw.json()
             })
             .then(function (dets) {
-                console.log(dets);
+                // console.log(dets);
                 dets.forEach(function (citi) {
                     let clist = document.createElement("li");
                     clist.innerText = citi.name + "," + citi.region;
@@ -60,7 +60,7 @@ city.addEventListener("input", function (e) {
 
 })
 culist.addEventListener("click",function(e){
-    console.log(e.target.textContent)
+    // console.log(e.target.textContent)
     searchmain(e.target.textContent)
 })
 
@@ -91,7 +91,7 @@ function searchmain(cv) {
     gk.style.display = "none"
 
     // document.querySelector("aside").innerHTML="";
-    console.log(city.value);
+    // console.log(city.value);
     fetch(`https://api.weatherapi.com/v1/forecast.json?key=${"01c5f08129a6474d9b865906262707"}&q=${cv}&days=3&alerts=yes&aqi=yes`)
 
 
@@ -108,7 +108,7 @@ function searchmain(cv) {
         .then((data) => {
 
 
-            console.log(data);
+            // console.log(data);
             rightbar.innerHTML = "";
             let loading=document.createElement("div");
             loading.textContent="loading...";
@@ -170,13 +170,6 @@ function searchmain(cv) {
 
             sunTemp.textContent = forecastchecktemp(cd1, data);
 
-            // const sunSvg = document.createElementNS(svgNS, "svg");
-            // sunSvg.setAttribute("class", "w-icon");
-            // sunSvg.setAttribute("viewBox", "0 0 24 24");
-            // sunSvg.setAttribute("fill", "currentColor");
-
-            // const sunPath = document.createElementNS(svgNS, "path");
-            // sunPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
             sunItem.appendChild(sunTemp);
             if (icon(data, cd1)) {
 
@@ -223,22 +216,7 @@ function searchmain(cv) {
             tueTemp.className = "forecast-item__temp";
             tueTemp.textContent = forecastchecktemp(cd3, data);
 
-            // const tueSvg = document.createElementNS(svgNS, "svg");
-            // tueSvg.setAttribute("class", "w-icon");
-            // tueSvg.setAttribute("viewBox", "0 0 24 24");
-            // tueSvg.setAttribute("fill", "currentColor");
-
-            // const tueCircle = document.createElementNS(svgNS, "circle");
-            // tueCircle.setAttribute("cx", "8");
-            // tueCircle.setAttribute("cy", "8");
-            // tueCircle.setAttribute("r", "3.2");
-            // tueCircle.setAttribute("opacity", "0.9");
-
-            // const tuePath = document.createElementNS(svgNS, "path");
-            // tuePath.setAttribute("d", "M9 19a5 5 0 01-.5-9.98A6 6 0 0120 10a4.3 4.3 0 01-1 9H9z");
-
-            // tueSvg.appendChild(tueCircle);
-            // tueSvg.appendChild(tuePath);
+            
             tueItem.appendChild(tueTemp);
             if (icon(data, cd3)) {
 
@@ -257,24 +235,7 @@ function searchmain(cv) {
             wedTemp.className = "forecast-item__temp";
             wedTemp.textContent = forecastchecktemp(cd4, data);
 
-            // const wedSvg = document.createElementNS(svgNS, "svg");
-            // wedSvg.setAttribute("class", "w-icon");
-            // wedSvg.setAttribute("viewBox", "0 0 24 24");
-
-            // const wedPath1 = document.createElementNS(svgNS, "path");
-            // wedPath1.setAttribute("d", "M7 14a5 5 0 01-.6-9.96A6 6 0 0118 6a4.5 4.5 0 01-.5 8.9");
-            // wedPath1.setAttribute("fill", "none");
-            // wedPath1.setAttribute("stroke", "currentColor");
-            // wedPath1.setAttribute("stroke-width", "1.6");
-            // wedPath1.setAttribute("stroke-linecap", "round");
-            // wedPath1.setAttribute("stroke-linejoin", "round");
-
-            // const wedPath2 = document.createElementNS(svgNS, "path");
-            // wedPath2.setAttribute("d", "M13 13l-3 5h3l-2 4 5-6h-3l2-3z");
-            // wedPath2.setAttribute("fill", "currentColor");
-
-            // wedSvg.appendChild(wedPath1);
-            // wedSvg.appendChild(wedPath2);
+        
             wedItem.appendChild(wedTemp);
             if (icon(data, cd4)) {
 
@@ -292,31 +253,8 @@ function searchmain(cv) {
             const thuTemp = document.createElement("span");
             thuTemp.className = "forecast-item__temp";
             thuTemp.textContent = forecastchecktemp(cd5, data);;
-            // let b=forecastchecktemp(cd,data);
-
-
-
-
-            // const thuSvg = document.createElementNS(svgNS, "svg");
-            // thuSvg.setAttribute("class", "w-icon");
-            // thuSvg.setAttribute("viewBox", "0 0 24 24");
-            // thuSvg.setAttribute("fill", "none");
-            // thuSvg.setAttribute("stroke", "currentColor");
-            // thuSvg.setAttribute("stroke-width", "1.7");
-            // thuSvg.setAttribute("stroke-linecap", "round");
-
-            // const thuCircle = document.createElementNS(svgNS, "circle");
-            // thuCircle.setAttribute("cx", "12");
-            // thuCircle.setAttribute("cy", "12");
-            // thuCircle.setAttribute("r", "4.3");
-            // thuCircle.setAttribute("fill", "currentColor");
-            // thuCircle.setAttribute("stroke", "none");
-
-            // const thuPath = document.createElementNS(svgNS, "path");
-            // thuPath.setAttribute("d", "M12 2.5v2.6M12 18.9v2.6M4.5 4.5l1.8 1.8M17.7 17.7l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.5 19.5l1.8-1.8M17.7 6.3l1.8-1.8");
-
-            // thuSvg.appendChild(thuCircle);
-            // thuSvg.appendChild(thuPath);
+            
+            
             thuItem.appendChild(thuTemp);
             if (icon(data, cd5)) {
 
@@ -335,15 +273,7 @@ function searchmain(cv) {
             friTemp.className = "forecast-item__temp";
             friTemp.textContent = forecastchecktemp(cd6, data);
 
-            // const cloudy = document.createElementNS(svgNS, "svg");
-            // cloudy.setAttribute("class", "w-icon");
-            // cloudy.setAttribute("viewBox", "0 0 24 24");
-            // cloudy.setAttribute("fill", "currentColor");
-
-            // const friPath = document.createElementNS(svgNS, "path");
-            // friPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
-
-            // cloudy.appendChild(friPath);
+           
             friItem.appendChild(friTemp);
             // friItem.appendChild(frisvgs);
             if (icon(data, cd6)) {
@@ -362,15 +292,7 @@ function searchmain(cv) {
             satTemp.className = "forecast-item__temp";
             satTemp.textContent = forecastchecktemp(cd7, data);
 
-            // const cloudy = document.createElementNS(svgNS, "svg");
-            // cloudy.setAttribute("class", "w-icon");
-            // cloudy.setAttribute("viewBox", "0 0 24 24");
-            // cloudy.setAttribute("fill", "currentColor");
-
-            // const friPath = document.createElementNS(svgNS, "path");
-            // friPath.setAttribute("d", "M7 18a5 5 0 01-.6-9.96A6 6 0 0118 10a4.5 4.5 0 01-1 8H7z");
-
-            // cloudy.appendChild(friPath);
+            
             satItem.appendChild(satTemp);
             // friItem.appendChild(frisvgs);
             if (icon(data, cd7)) {
@@ -574,12 +496,10 @@ function searchmain(cv) {
         },500)
         
         
-        // Simple version - plain document.createElement, line by line, no functions
-        // document.querySelector(".aside").innerHTML="";
-        // ---------- Aside container ----------
         
         
-        // Finally, add it to the page
+        
+        
         main.append(sec);
         dashboard.append(document.querySelector("main"));
         dashboard.append(rightbar);
@@ -587,7 +507,7 @@ function searchmain(cv) {
 
         })
         .catch((error) => {
-            console.log(error.message);
+            // console.log(error.message);
             
             let er=document.querySelector("#err");
             if(er.className==="err"){
@@ -666,17 +586,17 @@ function forecastchecktemp(codeday, data) {
     let d1 = day(date[0].date);
     let d2 = day(date[1].date);
     let d3 = day(date[2].date);
-    console.log(codeday);
+    // console.log(codeday);
 
 
     if (codeday === d1) {
-        return `${t1}°`;
+        return `${t1}°c`;
     }
     else if (codeday === d2) {
-        return `${t2}°`;
+        return `${t2}°c`;
     }
     else if (codeday === d3) {
-        return `${t3}°`;
+        return `${t3}°c`;
 
     }
     else return "--°";
@@ -816,7 +736,7 @@ function icon(data, cd) {
 //    wedSpan.className = "is-active";
 function activeness(data, footer, upper) {
     let firstday = day(data.forecast.forecastday[0].date);
-    console.log(firstday);
+    // console.log(firstday);
     let childrens = footer.children;
     for (let i = 0; i < childrens.length; i++) {
         if (childrens[i].textContent === firstday) {
@@ -896,14 +816,14 @@ function homesb(cities) {
                 cwindm.textContent = `${winm} mph`;
                 let crain = document.querySelector(`#${cities}rai`)
                 crain.textContent = `${rain}%`;
-                console.log(data);
+                // console.log(data);
                 document.querySelector("#bigquote").textContent = quote;
                 document.querySelector("#summaryd").textContent = summaryd;
                 let mid = document.querySelectorAll(".forecast-item");
                 mid.forEach(function (dets) {
                     let dy = dets.getAttribute("data-day");
                     let dytemp = document.querySelector(`#${dy}`);
-                    console.log(dy);
+                    // console.log(dy);
                     dytemp.textContent = forecastchecktemp(dy, data);
                     if (icon(data, dy)) {
 
@@ -920,7 +840,7 @@ function homesb(cities) {
             }
             else {
 
-                console.log(data);
+                // console.log(data);
                 if (cities === "New York") {
                     cities = "NewYork";
                 }

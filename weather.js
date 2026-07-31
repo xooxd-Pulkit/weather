@@ -96,7 +96,11 @@ function searchmain(cv) {
 
         .then(function (raw) {
             if (!raw.ok) {
-                throw new error("fuck off");
+                return raw.json().then(function(err){
+                    const errmess= new Error(err.error.message);
+                    err.code=err.error.code;
+                    throw errmess;
+                })
             }
             return raw.json();
         })
@@ -571,7 +575,17 @@ function searchmain(cv) {
 
         })
         .catch((error) => {
-
+            console.log(error.message);
+            
+            let er=document.querySelector("#err");
+            if(er.className==="err"){
+                er.classList.remove("err");
+            }
+            document.querySelector("#err").textContent=error.message;
+            document.querySelector("#err").style.color="red";
+            setTimeout(function(){
+                document.querySelector("#err").classList.add("err");
+            },3000);
         })
 }
 

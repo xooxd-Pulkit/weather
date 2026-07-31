@@ -955,3 +955,7 @@ svg {
 .suggestions-list li:hover {
   background-color: #f0f4f8;
 }
+.err {
+  display:none;
+  
+}
